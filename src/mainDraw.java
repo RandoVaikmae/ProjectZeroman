@@ -4,8 +4,21 @@ import javax.swing.JComponent;
 
 public class mainDraw extends JComponent {
 
-    public int x = 50;
-    public int y = 50;
+    public int x;
+    public int y;
+
+    public mainDraw(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
