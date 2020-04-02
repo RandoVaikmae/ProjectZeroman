@@ -15,22 +15,22 @@ public class mainDraw extends JComponent {
     }
 
     public void moveRight() {
-        x = x + 30;
+        x = x + 35;
         repaint();
     }
 
     public void moveLeft() {
-        x = x - 30;
+        x = x - 35;
         repaint();
     }
 
     public void moveDown() {
-        y = y + 30;
+        y = y + 35;
         repaint();
     }
 
     public void moveUp() {
-        y = y - 30;
+        y = y - 35;
         repaint();
     }
 }
