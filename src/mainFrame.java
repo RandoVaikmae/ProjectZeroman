@@ -6,11 +6,11 @@ import javax.swing.JFrame;
 class mainFrame extends JFrame implements KeyListener{
     private mainDraw draw;
 
-    public void keyPressed(KeyEvent e) {
+    public void keyReleased(KeyEvent e) {
         System.out.println(e.getKeyChar());
     }
 
-    public void keyReleased(KeyEvent e) {
+    public void keyPressed(KeyEvent e) {
         if(e.getKeyCode()== KeyEvent.VK_RIGHT)
             draw.moveRight();
         else if(e.getKeyCode()== KeyEvent.VK_LEFT)
