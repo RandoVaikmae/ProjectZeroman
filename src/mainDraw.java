@@ -24,13 +24,13 @@ public class mainDraw extends JComponent {
         this.y = y;
     }
 
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawRect(x, y, 50, 50);
-        g.fillRect(x, y, 50, 50);
-        g.setColor(Color.BLACK);
+    //public void paintComponent(Graphics g) {
+       // super.paintComponent(g);
+       // g.drawRect(x, y, 50, 50);
+        //g.fillRect(x, y, 50, 50);
+       // g.setColor(Color.BLACK);
 
-    }
+   // }
 
     public void moveRight() {
         x = x + 40;
@@ -64,8 +64,9 @@ public class mainDraw extends JComponent {
         g.setColor(roheline);
         super.paintComponent(g);
 
-        g.drawRect(x, y, 1080, 1000);
-        g.fillRect(x, y, 1800, 1000);
+        g.drawRect(x, y, 50, 50);
+        //g.drawRect(x, y, 180,180);
+        g.fillRect(x, y, 50, 50);
         g.drawImage(img, 100, 100, 100, 100, null);
 
     }

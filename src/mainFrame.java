@@ -36,7 +36,7 @@ class mainFrame extends JFrame implements KeyListener{
 
     public mainFrame(){
         this.draw = new mainDraw(50,50);
-        this.draw2= new mainDraw(100,100);
+        this.draw2= new mainDraw(500,100);
         addKeyListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
@@ -56,6 +56,7 @@ class mainFrame extends JFrame implements KeyListener{
                 frame.setMinimumSize(new Dimension(600, 600));
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.getContentPane().add(frame.draw);
+                frame.pack();
                 frame.getContentPane().add(frame.draw2);
                 frame.pack();
                 frame.setVisible(true);
