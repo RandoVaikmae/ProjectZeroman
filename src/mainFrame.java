@@ -14,21 +14,28 @@ class mainFrame extends JFrame implements KeyListener{
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode()== KeyEvent.VK_RIGHT){
             draw.moveRight();
-            draw2.moveRight();
+
+
         }
         else if(e.getKeyCode()== KeyEvent.VK_LEFT) {
             draw.moveLeft();
-            draw2.moveLeft();
         }
         else if(e.getKeyCode()== KeyEvent.VK_DOWN) {
             draw.moveDown();
-            draw2.moveDown();
         }
         else if(e.getKeyCode()== KeyEvent.VK_UP) {
             draw.moveUp();
-            draw2.moveUp();
         }
-
+        else if(e.getKeyCode()== KeyEvent.VK_D){
+            draw2.moveRight();
+        }
+        else if(e.getKeyCode()== KeyEvent.VK_A){
+            draw2.moveLeft();
+        }
+        else if(e.getKeyCode()== KeyEvent.VK_S){
+            draw2.moveDown();
+        }
+        else if(e.getKeyCode()== KeyEvent.VK_W) draw2.moveUp();
     }
     public void keyTyped(KeyEvent e) {
         System.out.println("keyTyped");
@@ -44,6 +51,7 @@ class mainFrame extends JFrame implements KeyListener{
         //draw.setX(50);
         //draw2.setX(100);
         //draw2.setY(100);
+
     }
 
     public static void main(String[] args) {

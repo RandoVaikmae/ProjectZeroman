@@ -56,18 +56,17 @@ public class mainDraw extends JComponent {
         Color roheline = new Color(160,233,27);
         BufferedImage img = null;
         try {
-            img = ImageIO.read(getClass().getResourceAsStream("/Zeromanreal.png"));
+            img = ImageIO.read(getClass().getResourceAsStream("/Zeromanoriginal.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        g.setColor(roheline);
+        g.setColor(Color.cyan);
         super.paintComponent(g);
-
         g.drawRect(x, y, 50, 50);
         //g.drawRect(x, y, 180,180);
         g.fillRect(x, y, 50, 50);
-        g.drawImage(img, 100, 100, 100, 100, null);
+        g.drawImage(img, 0, 0, 100, 100, null);
 
     }
 }

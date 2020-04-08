@@ -29,5 +29,6 @@ public class GameWindow extends JPanel{
         g.setColor(darkGreen);
         g.fillRect(0, 0, WIDTH, HEIGHT);
         g.drawImage(img,200,200, 200, 200, null);
+
     }
 }
