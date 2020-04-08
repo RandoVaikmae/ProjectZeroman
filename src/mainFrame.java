@@ -17,31 +17,30 @@ class mainFrame extends JFrame implements KeyListener{
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode()== KeyEvent.VK_RIGHT){
             draw.moveRight();
-            collision();
         }
         else if(e.getKeyCode()== KeyEvent.VK_LEFT) {
             draw.moveLeft();
-            collision();
         }
         else if(e.getKeyCode()== KeyEvent.VK_DOWN) {
             draw.moveDown();
-            collision();
         }
         else if(e.getKeyCode()== KeyEvent.VK_UP) {
             draw.moveUp();
-            collision();
         }
         else if(e.getKeyCode()== KeyEvent.VK_D){
             draw2.moveRight();
-            collision();
         }
         else if(e.getKeyCode()== KeyEvent.VK_A){
             draw2.moveLeft();
-            collision();
         }
         else if(e.getKeyCode()== KeyEvent.VK_S){
             draw2.moveDown();
-            collision();
+        }
+        else if(e.getKeyCode()== KeyEvent.VK_SPACE){
+            System.out.println("AHOI");
+            Rectangle rectangle1 = draw.getBounds();
+            Rectangle rectangle2 = draw2.getBounds();
+            collision(rectangle1, rectangle2);
         }
         else if(e.getKeyCode()== KeyEvent.VK_W) draw2.moveUp();
     }
@@ -80,18 +79,17 @@ class mainFrame extends JFrame implements KeyListener{
             }
         });
     }
-    public void collision() {
-            Rectangle rectangle1 = draw.getBounds();
-            Rectangle rectangle2 = draw2.getBounds();
+    public void collision(Rectangle rectangle1, Rectangle rectangle2) {
             //System.out.println("hei");
             if (rectangle1.intersects(rectangle2)) {
                 draw.setKokkuPorge(true);
-                //System.out.println("heiif");
+                System.out.println("heiif");
             }
             else {
                 draw.setKokkuPorge(false);
-                //System.out.println("heielse");
+                System.out.println("heielse");
             }
+
     }
 
 }
