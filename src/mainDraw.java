@@ -1,16 +1,14 @@
-import java.awt.Color;
-import java.awt.Graphics;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.JComponent;
 
 public class mainDraw extends JComponent {
 
-
+    boolean kokkuPorge = false;
     public int x;
     public int y;
-
     public mainDraw(int x, int y) {
         this.x = x;
         this.y = y;
@@ -23,7 +21,9 @@ public class mainDraw extends JComponent {
     public void setY(int y) {
         this.y = y;
     }
-
+    public void setKokkuPorge(boolean kokkuPorge) {
+        this.kokkuPorge = kokkuPorge;
+    }
     //public void paintComponent(Graphics g) {
        // super.paintComponent(g);
        // g.drawRect(x, y, 50, 50);
@@ -53,6 +53,7 @@ public class mainDraw extends JComponent {
     }
 
     public void paint(Graphics g) {
+        //Graphics2D g2d = (Graphics2D) g;
         Color roheline = new Color(160,233,27);
         BufferedImage img = null;
         try {
@@ -67,6 +68,14 @@ public class mainDraw extends JComponent {
         //g.drawRect(x, y, 180,180);
         g.fillRect(x, y, 50, 50);
         g.drawImage(img, 0, 0, 100, 100, null);
-
+        if (kokkuPorge) {
+            System.out.println("jõudsin siia");
+            g.drawString("COLLISION", 640, 320);
+        }
     }
+    public Rectangle bounds(){
+        return (new Rectangle(x,y,100,50));
+    }
+
+
 }
