@@ -7,11 +7,23 @@ import java.io.IOException;
 public class mainDraw extends JComponent {
 
     boolean kokkuPorge = false;
+    Font myFont = new Font ("Courier New", 1, 30);
     public int x;
     public int y;
-    public mainDraw(int x, int y) {
+    public String pilt;
+    public int skoor;
+    public int ruutNr;
+
+    public mainDraw(int x, int y, String pilt, int ruutNr) {
         this.x = x;
         this.y = y;
+        this.pilt = pilt;
+        this.ruutNr = ruutNr;
+
+    }
+
+    public void setSkoor(int skoor) {
+        this.skoor = skoor;
     }
 
     public void setX(int x) {
@@ -56,24 +68,33 @@ public class mainDraw extends JComponent {
     }
 
     public void paint(Graphics g) {
-        //Graphics2D g2d = (Graphics2D) g;
+        Graphics2D g2d = (Graphics2D) g;
         Color roheline = new Color(160,233,27);
         BufferedImage img = null;
         try {
-            img = ImageIO.read(getClass().getResourceAsStream("/Zeromanoriginal.png"));
+            img = ImageIO.read(getClass().getResourceAsStream(pilt));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        g.setColor(Color.cyan);
+        g.setColor(Color.black);
+        g.setFont(myFont);
         super.paintComponent(g);
         g.drawRect(x, y, 50, 50);
         //g.drawRect(x, y, 180,180);
         g.fillRect(x, y, 50, 50);
-        //g.drawImage(img, 0, 0, 100, 100, null);
+        g.drawImage(img, x, y, 55, 55, null);
+
         if (kokkuPorge) {
             g.drawString("COLLISION", 640, 320);
             kokkuPorge = false;
+        }
+        if (ruutNr == 1) {
+            g2d.drawString("SCORE: " + skoor, 400, 100);
+        }
+        else {
+            g2d.drawString("SCORE: "+ skoor, 400, 250);
         }
     }
     public Rectangle bounds(){

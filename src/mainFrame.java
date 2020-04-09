@@ -3,6 +3,8 @@ import org.w3c.dom.css.Rect;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.sql.SQLOutput;
+import java.time.ZoneOffset;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JFrame;
@@ -13,7 +15,8 @@ class mainFrame extends JFrame implements KeyListener{
     private mainDraw draw2;
     boolean  kokkuPorge = false;
     int uuenduskiirus = 500;
-
+    public int skoor;
+    public boolean onoff = false;
     float cooldown1;
     float cooldown2;
 
@@ -75,6 +78,7 @@ class mainFrame extends JFrame implements KeyListener{
                 draw2.refresh();
                 System.out.println(cooldown1);
                 cooldown1 = 0;
+                onoff = true;
             }
         }
         else if(e.getKeyCode()== KeyEvent.VK_ENTER){
@@ -97,8 +101,8 @@ class mainFrame extends JFrame implements KeyListener{
     }
 
     public mainFrame(){
-        this.draw = new mainDraw(500,150);
-        this.draw2= new mainDraw(50,50);
+        this.draw = new mainDraw(500,150, "Zeroman offical.png",1);
+        this.draw2= new mainDraw(50,50, "Zeromanreal.png",2);
         addKeyListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
@@ -133,6 +137,10 @@ class mainFrame extends JFrame implements KeyListener{
             rectangle1.grow(lisaSuurus,lisaSuurus);
             if (rectangle1.intersects(rectangle2)) {
                 draw.setKokkuPorge(true);
+                skoor += 1;
+                draw.setSkoor(skoor);
+                draw2.setSkoor(skoor);
+                System.out.println("See on skoor: " + skoor);
             }
             else {
                 draw.setKokkuPorge(false);
