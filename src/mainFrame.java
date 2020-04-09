@@ -40,7 +40,10 @@ class mainFrame extends JFrame implements KeyListener{
             System.out.println("AHOI");
             Rectangle rectangle1 = draw.getBounds();
             Rectangle rectangle2 = draw2.getBounds();
-            collision(rectangle1, rectangle2);
+            collision(rectangle1, rectangle2, 50);
+            rectangle1.setLocation(0,0);
+            rectangle2.setLocation(500,500);
+            draw2.refresh();
         }
         else if(e.getKeyCode()== KeyEvent.VK_W) draw2.moveUp();
     }
@@ -79,8 +82,8 @@ class mainFrame extends JFrame implements KeyListener{
             }
         });
     }
-    public void collision(Rectangle rectangle1, Rectangle rectangle2) {
-            //System.out.println("hei");
+    public void collision(Rectangle rectangle1, Rectangle rectangle2, int lisaSuurus) {
+            rectangle1.grow(lisaSuurus,lisaSuurus);
             if (rectangle1.intersects(rectangle2)) {
                 draw.setKokkuPorge(true);
                 System.out.println("heiif");
@@ -90,6 +93,10 @@ class mainFrame extends JFrame implements KeyListener{
                 System.out.println("heielse");
             }
 
+    }
+    public void uuendaRect(){
+        Rectangle rectangle1 = draw.getBounds();
+        Rectangle rectangle2 = draw2.getBounds();
     }
 
 }

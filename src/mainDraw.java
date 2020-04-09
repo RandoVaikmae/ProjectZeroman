@@ -51,6 +51,9 @@ public class mainDraw extends JComponent {
         y = y - 40;
         repaint();
     }
+    public void refresh(){
+        repaint();
+    }
 
     public void paint(Graphics g) {
         //Graphics2D g2d = (Graphics2D) g;
@@ -67,10 +70,11 @@ public class mainDraw extends JComponent {
         g.drawRect(x, y, 50, 50);
         //g.drawRect(x, y, 180,180);
         g.fillRect(x, y, 50, 50);
-        g.drawImage(img, 0, 0, 100, 100, null);
+        //g.drawImage(img, 0, 0, 100, 100, null);
         if (kokkuPorge) {
             System.out.println("jõudsin siia");
             g.drawString("COLLISION", 640, 320);
+            kokkuPorge = false;
         }
     }
     public Rectangle bounds(){
