@@ -3,6 +3,8 @@ import org.w3c.dom.css.Rect;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JFrame;
 
 
@@ -10,6 +12,32 @@ class mainFrame extends JFrame implements KeyListener{
     private mainDraw draw;
     private mainDraw draw2;
     boolean  kokkuPorge = false;
+    int uuenduskiirus = 500;
+
+    float cooldown1;
+    float cooldown2;
+
+    Timer timer1 = new Timer();
+    TimerTask task1 = new TimerTask(){
+        public void run(){
+            cooldown1 += 0.5;
+
+        }
+    };
+    public void timerstart1(){
+        timer1.scheduleAtFixedRate(task1,uuenduskiirus,uuenduskiirus);
+    }
+
+    Timer timer2 = new Timer();
+    TimerTask task2 = new TimerTask(){
+        public void run(){
+            cooldown2 += 0.5;
+
+        }
+    };
+    public void timerstart2(){
+        timer2.scheduleAtFixedRate(task2,uuenduskiirus,uuenduskiirus);
+    }
     public void keyReleased(KeyEvent e) {
         //System.out.println(e.getKeyChar());
     }
@@ -37,13 +65,30 @@ class mainFrame extends JFrame implements KeyListener{
             draw2.moveDown();
         }
         else if(e.getKeyCode()== KeyEvent.VK_SPACE){
-            System.out.println("AHOI");
-            Rectangle rectangle1 = draw.getBounds();
-            Rectangle rectangle2 = draw2.getBounds();
-            collision(rectangle1, rectangle2, 50);
-            rectangle1.setLocation(0,0);
-            rectangle2.setLocation(500,500);
-            draw2.refresh();
+            if (cooldown1>=0.5) {
+                System.out.println("PLAYER 1 LÖÖB");
+                Rectangle rectangle1 = draw.getBounds();
+                Rectangle rectangle2 = draw2.getBounds();
+                collision(rectangle1, rectangle2, 50);
+                rectangle1.setLocation(0, 0);
+                rectangle2.setLocation(500, 500);
+                draw2.refresh();
+                System.out.println(cooldown1);
+                cooldown1 = 0;
+            }
+        }
+        else if(e.getKeyCode()== KeyEvent.VK_ENTER){
+            if (cooldown2>=1) {
+                System.out.println("PLAYER 2 LÖÖB");
+                Rectangle rectangle1 = draw.getBounds();
+                Rectangle rectangle2 = draw2.getBounds();
+                collision(rectangle1, rectangle2, 50);
+                rectangle1.setLocation(0, 0);
+                rectangle2.setLocation(500, 500);
+                draw2.refresh();
+                System.out.println(cooldown2);
+                cooldown2 = 0;
+            }
         }
         else if(e.getKeyCode()== KeyEvent.VK_W) draw2.moveUp();
     }
@@ -57,6 +102,8 @@ class mainFrame extends JFrame implements KeyListener{
         addKeyListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
+        timerstart1();
+        timerstart2();
         //draw.setY(50);
         //draw.setX(50);
         //draw2.setX(100);
@@ -86,11 +133,9 @@ class mainFrame extends JFrame implements KeyListener{
             rectangle1.grow(lisaSuurus,lisaSuurus);
             if (rectangle1.intersects(rectangle2)) {
                 draw.setKokkuPorge(true);
-                System.out.println("heiif");
             }
             else {
                 draw.setKokkuPorge(false);
-                System.out.println("heielse");
             }
 
     }

@@ -72,7 +72,6 @@ public class mainDraw extends JComponent {
         g.fillRect(x, y, 50, 50);
         //g.drawImage(img, 0, 0, 100, 100, null);
         if (kokkuPorge) {
-            System.out.println("jõudsin siia");
             g.drawString("COLLISION", 640, 320);
             kokkuPorge = false;
         }
