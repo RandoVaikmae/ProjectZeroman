@@ -15,7 +15,8 @@ class mainFrame extends JFrame implements KeyListener{
     private mainDraw draw2;
     boolean  kokkuPorge = false;
     int uuenduskiirus = 500;
-    public int skoor;
+    public int skoor1;
+    public int skoor2;
     public boolean onoff = false;
     float cooldown1;
     float cooldown2;
@@ -73,12 +74,14 @@ class mainFrame extends JFrame implements KeyListener{
                 Rectangle rectangle1 = draw.getBounds();
                 Rectangle rectangle2 = draw2.getBounds();
                 collision(rectangle1, rectangle2, 50);
+                if (collisionToimub(rectangle1,rectangle2)){
+                    muudaSkoor1(draw);
+                }
                 rectangle1.setLocation(0, 0);
                 rectangle2.setLocation(500, 500);
                 draw2.refresh();
                 System.out.println(cooldown1);
                 cooldown1 = 0;
-                onoff = true;
             }
         }
         else if(e.getKeyCode()== KeyEvent.VK_ENTER){
@@ -87,6 +90,9 @@ class mainFrame extends JFrame implements KeyListener{
                 Rectangle rectangle1 = draw.getBounds();
                 Rectangle rectangle2 = draw2.getBounds();
                 collision(rectangle1, rectangle2, 50);
+                if (collisionToimub(rectangle1,rectangle2)){
+                    muudaSkoor2(draw2);
+                }
                 rectangle1.setLocation(0, 0);
                 rectangle2.setLocation(500, 500);
                 draw2.refresh();
@@ -133,23 +139,29 @@ class mainFrame extends JFrame implements KeyListener{
             }
         });
     }
+    public boolean collisionToimub(Rectangle rectangle1, Rectangle rectangle2){
+        if (rectangle1.intersects(rectangle2)){
+            return true;
+        }else{
+            return false;
+        }
+    }
     public void collision(Rectangle rectangle1, Rectangle rectangle2, int lisaSuurus) {
             rectangle1.grow(lisaSuurus,lisaSuurus);
-            if (rectangle1.intersects(rectangle2)) {
+            if (collisionToimub(rectangle1,rectangle2)) {
                 draw.setKokkuPorge(true);
-                skoor += 1;
-                draw.setSkoor(skoor);
-                draw2.setSkoor(skoor);
-                System.out.println("See on skoor: " + skoor);
             }
             else {
                 draw.setKokkuPorge(false);
             }
 
     }
-    public void uuendaRect(){
-        Rectangle rectangle1 = draw.getBounds();
-        Rectangle rectangle2 = draw2.getBounds();
+    public void muudaSkoor1(mainDraw objekt){
+        skoor1++;
+        objekt.setSkoor(skoor1);
     }
-
+    public void muudaSkoor2(mainDraw objekt){
+        skoor2++;
+        objekt.setSkoor(skoor2);
+    }
 }
