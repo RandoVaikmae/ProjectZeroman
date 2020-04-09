@@ -7,6 +7,7 @@ import java.sql.SQLOutput;
 import java.time.ZoneOffset;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ThreadLocalRandom;
 import javax.swing.JFrame;
 
 
@@ -76,6 +77,8 @@ class mainFrame extends JFrame implements KeyListener{
                 collision(rectangle1, rectangle2, 50);
                 if (collisionToimub(rectangle1,rectangle2)){
                     muudaSkoor1(draw);
+                    muudaAsukohad(50,200,50,500,draw2);
+                    muudaAsukohad(300,550,50,500,draw);
                 }
                 rectangle1.setLocation(0, 0);
                 rectangle2.setLocation(500, 500);
@@ -92,6 +95,9 @@ class mainFrame extends JFrame implements KeyListener{
                 collision(rectangle1, rectangle2, 50);
                 if (collisionToimub(rectangle1,rectangle2)){
                     muudaSkoor2(draw2);
+                    muudaAsukohad(50,200,50,500,draw2);
+                    muudaAsukohad(300,550,50,500,draw);
+                    //draw.setX(ThreadLocalRandom.current().nextInt(100, 500 + 1));
                 }
                 rectangle1.setLocation(0, 0);
                 rectangle2.setLocation(500, 500);
@@ -163,5 +169,9 @@ class mainFrame extends JFrame implements KeyListener{
     public void muudaSkoor2(mainDraw objekt){
         skoor2++;
         objekt.setSkoor(skoor2);
+    }
+    public void muudaAsukohad(int xMin, int xMax,int yMin,int yMax,mainDraw objekt){
+        objekt.setY(ThreadLocalRandom.current().nextInt(yMin, yMax + 1));
+        objekt.setX(ThreadLocalRandom.current().nextInt(xMin, xMax + 1));
     }
 }
