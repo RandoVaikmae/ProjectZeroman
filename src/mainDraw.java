@@ -3,10 +3,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
-import static javax.swing.JFrame.*;
+import java.util.Scanner;
 
 public class mainDraw extends JComponent {
+
 
     boolean kokkuPorge = false;
     Font myFont = new Font ("Courier New", 1, 30);
@@ -15,16 +15,16 @@ public class mainDraw extends JComponent {
     public String pilt;
     public int skoor;
     public int ruutNr;
+    public int gameMode;
+    public String mängija1;
 
-    public mainDraw(int x, int y, String pilt, int ruutNr) {
+    public mainDraw(int x, int y, String pilt, int ruutNr, String mängija1) {
         this.x = x;
         this.y = y;
         this.pilt = pilt;
         this.ruutNr = ruutNr;
-
-
+        this.mängija1 = mängija1;
     }
-
     public void setSkoor(int skoor) {
         this.skoor = skoor;
     }
@@ -50,7 +50,6 @@ public class mainDraw extends JComponent {
        // g.setColor(Color.BLACK);
 
    // }
-
     public void moveRight() {
         x = x + 25;
         repaint();
@@ -78,14 +77,20 @@ public class mainDraw extends JComponent {
         Graphics2D g2d = (Graphics2D) g;
         Color roheline = new Color(160,233,27);
         BufferedImage img = null;
+
         try {
             img = ImageIO.read(getClass().getResourceAsStream(pilt));
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
+        if (gameMode == 1){
+            Scanner myObj = new Scanner(System.in);
+            System.out.println("Sisesta nimi: ");
+            String userName = myObj.nextLine();  // Read user input
+            System.out.println("Sinu kangelasnimi on: " + userName.toUpperCase());  // Output user in
+            gameMode += 1;
+        }
         g.setColor(Color.black);
         g.setFont(myFont);
         super.paintComponent(g);
@@ -94,14 +99,16 @@ public class mainDraw extends JComponent {
         g.fillRect(x, y, 50, 50);
         g.drawImage(img, x, y, 55, 55, null);
         if (kokkuPorge) {
-            g.drawString("COLLISION", 640, 320);
             kokkuPorge = false;
         }
         if (ruutNr == 1) {
-            g2d.drawString("SCORE: " + skoor, 400, 100);
+            g2d.drawString("SCORE: " + skoor, 400, 25);
+            g2d.drawString(mängija1, 400, 50);
+
         }
         else {
-            g2d.drawString("SCORE: "+ skoor, 400, 250);
+            g2d.drawString("SCORE: "+ skoor, 75, 25);
+            g2d.drawString(mängija1, 75, 50);
         }
     }
     public Rectangle bounds(){

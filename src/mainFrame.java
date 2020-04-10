@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ThreadLocalRandom;
@@ -54,11 +55,13 @@ class mainFrame extends JFrame implements KeyListener{
         }
         else if(e.getKeyCode()== KeyEvent.VK_DOWN) {
             draw.moveDown();
-            draw.setPilt("zerodownroh.png");
+            //draw.setPilt("zerodownroh.png");
+            draw.setPilt("Zeromanreal.png");
         }
         else if(e.getKeyCode()== KeyEvent.VK_UP) {
             draw.moveUp();
-            draw.setPilt("zerouproh.png");
+            //draw.setPilt("zerouproh.png");
+            draw.setPilt("Zeromanreal.png");
         }
         else if(e.getKeyCode()== KeyEvent.VK_D){
             draw2.moveRight();
@@ -70,14 +73,16 @@ class mainFrame extends JFrame implements KeyListener{
         }
         else if(e.getKeyCode()== KeyEvent.VK_S){
             draw2.moveDown();
-            draw2.setPilt("zerodownroh.png");
+            //draw2.setPilt("zerodownroh.png");
+            draw2.setPilt("Zeromanreal.png");
         }
         else if(e.getKeyCode()== KeyEvent.VK_SPACE){
             if (cooldown1>=0.5) {
                 System.out.println("PLAYER 1 LÖÖB");
                 Rectangle rectangle1 = draw.getBounds();
                 Rectangle rectangle2 = draw2.getBounds();
-                collision(rectangle1, rectangle2, 50);
+                draw2.setPilt("zerospac.png");
+                collision(rectangle1, rectangle2, 5);
                 if (collisionToimub(rectangle1,rectangle2)){
                     muudaSkoor1(draw);
                     muudaAsukohad(50,200,50,500,draw2);
@@ -95,7 +100,8 @@ class mainFrame extends JFrame implements KeyListener{
                 System.out.println("PLAYER 2 LÖÖB");
                 Rectangle rectangle1 = draw.getBounds();
                 Rectangle rectangle2 = draw2.getBounds();
-                collision(rectangle1, rectangle2, 50);
+                draw.setPilt("zeroent.png");
+                collision(rectangle1, rectangle2, 5);
                 if (collisionToimub(rectangle1,rectangle2)){
                     muudaSkoor2(draw2);
                     muudaAsukohad(50,200,50,500,draw2);
@@ -111,7 +117,8 @@ class mainFrame extends JFrame implements KeyListener{
         }
         else if(e.getKeyCode()== KeyEvent.VK_W){
             draw2.moveUp();
-            draw2.setPilt("zerouproh.png");
+            //draw2.setPilt("zerouproh.png");
+            draw2.setPilt("Zeromanreal.png");
         }
     }
     public void keyTyped(KeyEvent e) {
@@ -119,8 +126,16 @@ class mainFrame extends JFrame implements KeyListener{
     }
 
     public mainFrame(){
-        this.draw = new mainDraw(500,150, "Zeromanreal.png",1);
-        this.draw2= new mainDraw(50,50, "Zeromanreal.png",2);
+        Scanner nimed = new Scanner(System.in);
+        System.out.println("Sisesta nimi: ");
+        String mängija1 = nimed.nextLine();  // Read user input
+        System.out.println("Sinu kangelasnimi on: " + mängija1.toUpperCase());  // Output user in
+        Scanner nimed2 = new Scanner(System.in);
+        System.out.println("Sisesta nimi: ");
+        String mängija2 = nimed2.nextLine();  // Read user input
+        System.out.println("Sinu kangelasnimi on: " + mängija1.toUpperCase());  // Output user in
+        this.draw = new mainDraw(500,150, "Zeromanreal.png",1, mängija1);
+        this.draw2= new mainDraw(50,50, "Zeromanreal.png",2, mängija2);
         this.getContentPane().setBackground(new Color(160,233,27));
         addKeyListener(this);
         setFocusable(true);
