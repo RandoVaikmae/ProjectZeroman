@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import static javax.swing.JFrame.*;
+
 public class mainDraw extends JComponent {
 
     boolean kokkuPorge = false;
@@ -19,6 +21,7 @@ public class mainDraw extends JComponent {
         this.y = y;
         this.pilt = pilt;
         this.ruutNr = ruutNr;
+
 
     }
 
@@ -36,6 +39,10 @@ public class mainDraw extends JComponent {
     public void setKokkuPorge(boolean kokkuPorge) {
         this.kokkuPorge = kokkuPorge;
     }
+
+    public void setPilt(String pilt) {
+        this.pilt = pilt;
+    }
     //public void paintComponent(Graphics g) {
        // super.paintComponent(g);
        // g.drawRect(x, y, 50, 50);
@@ -45,22 +52,22 @@ public class mainDraw extends JComponent {
    // }
 
     public void moveRight() {
-        x = x + 40;
+        x = x + 25;
         repaint();
     }
 
     public void moveLeft() {
-        x = x - 40;
+        x = x - 25;
         repaint();
     }
 
     public void moveDown() {
-        y = y + 40;
+        y = y + 25;
         repaint();
     }
 
     public void moveUp() {
-        y = y - 40;
+        y = y - 25;
         repaint();
     }
     public void refresh(){
@@ -78,6 +85,7 @@ public class mainDraw extends JComponent {
             e.printStackTrace();
         }
 
+
         g.setColor(Color.black);
         g.setFont(myFont);
         super.paintComponent(g);
@@ -85,7 +93,6 @@ public class mainDraw extends JComponent {
         //g.drawRect(x, y, 180,180);
         g.fillRect(x, y, 50, 50);
         g.drawImage(img, x, y, 55, 55, null);
-
         if (kokkuPorge) {
             g.drawString("COLLISION", 640, 320);
             kokkuPorge = false;

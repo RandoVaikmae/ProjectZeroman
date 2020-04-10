@@ -1,10 +1,6 @@
-import org.w3c.dom.css.Rect;
-
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.sql.SQLOutput;
-import java.time.ZoneOffset;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ThreadLocalRandom;
@@ -50,24 +46,31 @@ class mainFrame extends JFrame implements KeyListener{
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode()== KeyEvent.VK_RIGHT){
             draw.moveRight();
+            draw.setPilt("Zeromanreal.png");
         }
         else if(e.getKeyCode()== KeyEvent.VK_LEFT) {
             draw.moveLeft();
+            draw.setPilt("zeroleftroh.png");
         }
         else if(e.getKeyCode()== KeyEvent.VK_DOWN) {
             draw.moveDown();
+            draw.setPilt("zerodownroh.png");
         }
         else if(e.getKeyCode()== KeyEvent.VK_UP) {
             draw.moveUp();
+            draw.setPilt("zerouproh.png");
         }
         else if(e.getKeyCode()== KeyEvent.VK_D){
             draw2.moveRight();
+            draw2.setPilt("Zeromanreal.png");
         }
         else if(e.getKeyCode()== KeyEvent.VK_A){
             draw2.moveLeft();
+            draw2.setPilt("zeroleftroh.png");
         }
         else if(e.getKeyCode()== KeyEvent.VK_S){
             draw2.moveDown();
+            draw2.setPilt("zerodownroh.png");
         }
         else if(e.getKeyCode()== KeyEvent.VK_SPACE){
             if (cooldown1>=0.5) {
@@ -106,15 +109,19 @@ class mainFrame extends JFrame implements KeyListener{
                 cooldown2 = 0;
             }
         }
-        else if(e.getKeyCode()== KeyEvent.VK_W) draw2.moveUp();
+        else if(e.getKeyCode()== KeyEvent.VK_W){
+            draw2.moveUp();
+            draw2.setPilt("zerouproh.png");
+        }
     }
     public void keyTyped(KeyEvent e) {
         //System.out.println("keyTyped");
     }
 
     public mainFrame(){
-        this.draw = new mainDraw(500,150, "Zeroman offical.png",1);
+        this.draw = new mainDraw(500,150, "Zeromanreal.png",1);
         this.draw2= new mainDraw(50,50, "Zeromanreal.png",2);
+        this.getContentPane().setBackground(new Color(160,233,27));
         addKeyListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
@@ -131,7 +138,7 @@ class mainFrame extends JFrame implements KeyListener{
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 mainFrame frame = new mainFrame();
-                frame.setTitle("Square Move Practice");
+                frame.setTitle("Zeroman version 1.1");
                 frame.setResizable(false);
                 frame.setSize(600, 600);
                 frame.setMinimumSize(new Dimension(600, 600));
