@@ -41,7 +41,6 @@ class mainFrame extends JFrame implements KeyListener{
         timer2.scheduleAtFixedRate(task2,uuenduskiirus,uuenduskiirus);
     }
     public void keyReleased(KeyEvent e) {
-        //System.out.println(e.getKeyChar());
     }
 
     public void keyPressed(KeyEvent e) {
@@ -55,13 +54,9 @@ class mainFrame extends JFrame implements KeyListener{
         }
         else if(e.getKeyCode()== KeyEvent.VK_DOWN) {
             draw.moveDown();
-            //draw.setPilt("zerodownroh.png");
-            draw.setPilt("Zeromanreal.png");
         }
         else if(e.getKeyCode()== KeyEvent.VK_UP) {
             draw.moveUp();
-            //draw.setPilt("zerouproh.png");
-            draw.setPilt("Zeromanreal.png");
         }
         else if(e.getKeyCode()== KeyEvent.VK_D){
             draw2.moveRight();
@@ -73,8 +68,9 @@ class mainFrame extends JFrame implements KeyListener{
         }
         else if(e.getKeyCode()== KeyEvent.VK_S){
             draw2.moveDown();
-            //draw2.setPilt("zerodownroh.png");
-            draw2.setPilt("Zeromanreal.png");
+        }
+        else if(e.getKeyCode()== KeyEvent.VK_W){
+            draw2.moveUp();
         }
         else if(e.getKeyCode()== KeyEvent.VK_SPACE){
             if (cooldown1>=0.5) {
@@ -106,7 +102,6 @@ class mainFrame extends JFrame implements KeyListener{
                     muudaSkoor2(draw2);
                     muudaAsukohad(50,200,50,500,draw2);
                     muudaAsukohad(300,550,50,500,draw);
-                    //draw.setX(ThreadLocalRandom.current().nextInt(100, 500 + 1));
                 }
                 rectangle1.setLocation(0, 0);
                 rectangle2.setLocation(500, 500);
@@ -115,14 +110,9 @@ class mainFrame extends JFrame implements KeyListener{
                 cooldown2 = 0;
             }
         }
-        else if(e.getKeyCode()== KeyEvent.VK_W){
-            draw2.moveUp();
-            //draw2.setPilt("zerouproh.png");
-            draw2.setPilt("Zeromanreal.png");
-        }
+
     }
     public void keyTyped(KeyEvent e) {
-        //System.out.println("keyTyped");
     }
 
     public mainFrame(){
@@ -142,11 +132,6 @@ class mainFrame extends JFrame implements KeyListener{
         setFocusTraversalKeysEnabled(false);
         timerstart1();
         timerstart2();
-        //draw.setY(50);
-        //draw.setX(50);
-        //draw2.setX(100);
-        //draw2.setY(100);
-
     }
 
     public static void main(String[] args) {

@@ -43,13 +43,6 @@ public class mainDraw extends JComponent {
     public void setPilt(String pilt) {
         this.pilt = pilt;
     }
-    //public void paintComponent(Graphics g) {
-       // super.paintComponent(g);
-       // g.drawRect(x, y, 50, 50);
-        //g.fillRect(x, y, 50, 50);
-       // g.setColor(Color.BLACK);
-
-   // }
     public void moveRight() {
         x = x + 25;
         repaint();
