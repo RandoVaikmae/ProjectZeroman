@@ -77,13 +77,6 @@ public class mainDraw extends JComponent {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (gameMode == 1){
-            Scanner myObj = new Scanner(System.in);
-            System.out.println("Sisesta nimi: ");
-            String userName = myObj.nextLine();  // Read user input
-            System.out.println("Sinu kangelasnimi on: " + userName.toUpperCase());  // Output user in
-            gameMode += 1;
-        }
         g.setColor(Color.black);
         g.setFont(myFont);
         super.paintComponent(g);

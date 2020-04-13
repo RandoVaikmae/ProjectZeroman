@@ -123,7 +123,8 @@ class mainFrame extends JFrame implements KeyListener{
         Scanner nimed2 = new Scanner(System.in);
         System.out.println("Sisesta nimi: ");
         String mängija2 = nimed2.nextLine();  // Read user input
-        System.out.println("Sinu kangelasnimi on: " + mängija1.toUpperCase());  // Output user in
+        System.out.println("Sinu kangelasnimi on: " + mängija2.toUpperCase());  // Output user in
+        System.out.println("Player1 controls: WASD + space, Player2 controls: up,down,left,right + enter");
         this.draw = new mainDraw(500,150, "Zeromanreal.png",1, mängija1);
         this.draw2= new mainDraw(50,50, "Zeromanreal.png",2, mängija2);
         this.getContentPane().setBackground(new Color(160,233,27));
