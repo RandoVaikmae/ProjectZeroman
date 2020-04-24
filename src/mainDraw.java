@@ -18,7 +18,7 @@ public class mainDraw extends JComponent {
     public int gameMode;
     public String mängija1;
 
-    public mainDraw(int x, int y, String pilt, int ruutNr, String mängija1) {
+    public mainDraw(int x, int y, String pilt, int ruutNr, String mängija1) { //2# Siin funktsioonis loome parameetrid, mille abil on hiljem võimalik ruutu(mängukarakterit) disainida(muuta).
         this.x = x;
         this.y = y;
         this.pilt = pilt;
@@ -66,7 +66,7 @@ public class mainDraw extends JComponent {
         repaint();
     }
 
-    public void paint(Graphics g) {
+    public void paint(Graphics g) { //3# Siin funktsioonis joonistame kõik vajaliku pildile, täidame ruudud piltidega ning muudame taustapilti.
         Graphics2D g2d = (Graphics2D) g;
         Color roheline = new Color(160,233,27);
         BufferedImage img = null;

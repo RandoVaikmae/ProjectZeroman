@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import javax.swing.JFrame;
 
 
-class mainFrame extends JFrame implements KeyListener{
+class main extends JFrame implements KeyListener{ //4# Siin klassis pärime funktsioonid Keylistenerilt, et koodil abil oleks võimalik klaviatuuri kaasata.
     private mainDraw draw;
     private mainDraw draw2;
     boolean  kokkuPorge = false;
@@ -43,7 +43,7 @@ class mainFrame extends JFrame implements KeyListener{
     public void keyReleased(KeyEvent e) {
     }
 
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e) { //#5 Siin funktsioonis kontrollime kas nuppu on vajutatud ning millist nuppu on vajutatud
         if(e.getKeyCode()== KeyEvent.VK_RIGHT){
             draw.moveRight();
             draw.setPilt("Zeromanreal.png");
@@ -115,7 +115,7 @@ class mainFrame extends JFrame implements KeyListener{
     public void keyTyped(KeyEvent e) {
     }
 
-    public mainFrame(){
+    public main(){
         Scanner nimed = new Scanner(System.in);
         System.out.println("Sisesta nimi: ");
         String mängija1 = nimed.nextLine();  // Read user input
@@ -135,10 +135,10 @@ class mainFrame extends JFrame implements KeyListener{
         timerstart2();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { // #6 Siin funktsioonis loome mänguakna ning loome sellele parameetrid ja lisame sinna mängukarakterid
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                mainFrame frame = new mainFrame();
+                main frame = new main();
                 frame.setTitle("Zeroman version 1.1");
                 frame.setResizable(false);
                 frame.setSize(600, 600);
@@ -178,7 +178,7 @@ class mainFrame extends JFrame implements KeyListener{
         skoor2++;
         objekt.setSkoor(skoor2);
     }
-    public void muudaAsukohad(int xMin, int xMax,int yMin,int yMax,mainDraw objekt){
+    public void muudaAsukohad(int xMin, int xMax,int yMin,int yMax,mainDraw objekt){//selles funktsioonis määrame pärast kokkupõrget karakteritele suvalise asukoha
         objekt.setY(ThreadLocalRandom.current().nextInt(yMin, yMax + 1));
         objekt.setX(ThreadLocalRandom.current().nextInt(xMin, xMax + 1));
     }
