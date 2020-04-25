@@ -8,9 +8,9 @@ import java.util.concurrent.ThreadLocalRandom;
 import javax.swing.JFrame;
 
 
-class main extends JFrame implements KeyListener{ //4# Siin klassis pärime funktsioonid Keylistenerilt, et koodil abil oleks võimalik klaviatuuri kaasata.
-    private mainDraw draw;
-    private mainDraw draw2;
+class main extends JFrame implements KeyListener{ //4# Siin klassis pärime funktsioonid Keylistenerilt, et koodi abil oleks võimalik klaviatuuri kaasata.
+    private Draw draw;
+    private Draw draw2;
     boolean  kokkuPorge = false;
     int uuenduskiirus = 500;
     public int skoor1;
@@ -115,7 +115,7 @@ class main extends JFrame implements KeyListener{ //4# Siin klassis pärime funk
     public void keyTyped(KeyEvent e) {
     }
 
-    public main(){
+    public main(){ // siin kasutame Scannerit, et saada user inputi ning anname rectangletile parameetrid
         Scanner nimed = new Scanner(System.in);
         System.out.println("Sisesta nimi: ");
         String mängija1 = nimed.nextLine();  // Read user input
@@ -125,8 +125,8 @@ class main extends JFrame implements KeyListener{ //4# Siin klassis pärime funk
         String mängija2 = nimed2.nextLine();  // Read user input
         System.out.println("Sinu kangelasnimi on: " + mängija2.toUpperCase());  // Output user in
         System.out.println("Player1 controls: WASD + space, Player2 controls: up,down,left,right + enter");
-        this.draw = new mainDraw(500,150, "Zeromanreal.png",1, mängija1);
-        this.draw2= new mainDraw(50,50, "Zeromanreal.png",2, mängija2);
+        this.draw = new Draw(500,150, "Zeromanreal.png",1, mängija1);
+        this.draw2= new Draw(50,50, "Zeromanreal.png",2, mängija2);
         this.getContentPane().setBackground(new Color(160,233,27));
         addKeyListener(this);
         setFocusable(true);
@@ -135,7 +135,7 @@ class main extends JFrame implements KeyListener{ //4# Siin klassis pärime funk
         timerstart2();
     }
 
-    public static void main(String[] args) { // #6 Siin funktsioonis loome mänguakna ning loome sellele parameetrid ja lisame sinna mängukarakterid
+    public static void main(String[] args) { // #6 Siin loome mänguakna ning loome sellele parameetrid ja lisame sinna mängukarakterid
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 main frame = new main();
@@ -170,15 +170,15 @@ class main extends JFrame implements KeyListener{ //4# Siin klassis pärime funk
             }
 
     }
-    public void muudaSkoor1(mainDraw objekt){
+    public void muudaSkoor1(Draw objekt){
         skoor1++;
         objekt.setSkoor(skoor1);
     }
-    public void muudaSkoor2(mainDraw objekt){
+    public void muudaSkoor2(Draw objekt){
         skoor2++;
         objekt.setSkoor(skoor2);
     }
-    public void muudaAsukohad(int xMin, int xMax,int yMin,int yMax,mainDraw objekt){//selles funktsioonis määrame pärast kokkupõrget karakteritele suvalise asukoha
+    public void muudaAsukohad(int xMin, int xMax, int yMin, int yMax, Draw objekt){//selles funktsioonis määrame pärast kokkupõrget karakteritele suvalise asukoha
         objekt.setY(ThreadLocalRandom.current().nextInt(yMin, yMax + 1));
         objekt.setX(ThreadLocalRandom.current().nextInt(xMin, xMax + 1));
     }
