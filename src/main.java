@@ -34,6 +34,19 @@ class main extends JFrame implements KeyListener{ //4# Siin klassis pärime funk
     TimerTask task2 = new TimerTask(){
         public void run(){
             cooldown2 += 0.5;
+            int liikumissuund = ThreadLocalRandom.current().nextInt(1, 5 + 1);
+            if(liikumissuund==1){
+                draw.moveDown();
+            }
+            else if(liikumissuund==2 || liikumissuund ==5){
+                draw.moveLeft();
+            }
+            else if(liikumissuund==3){
+                draw.moveUp();
+            }
+            else if(liikumissuund==4){
+                draw.moveRight();
+            }
 
         }
     };
@@ -78,11 +91,26 @@ class main extends JFrame implements KeyListener{ //4# Siin klassis pärime funk
                 Rectangle rectangle1 = draw.getBounds();
                 Rectangle rectangle2 = draw2.getBounds();
                 draw2.setPilt("zerospac.png");
-                collision(rectangle1, rectangle2, 5);
+                collision(rectangle1, rectangle2, 0);
                 if (collisionToimub(rectangle1,rectangle2)){
                     muudaSkoor1(draw);
                     muudaAsukohad(50,200,50,500,draw2);
                     muudaAsukohad(300,550,50,500,draw);
+                    System.out.println("HEIJOU SKOOR ON SEE " + skoor1);
+                    if (skoor1>=3 && skoor1<=5) {
+                        System.out.println("JÕUDSIN SIIAAAAAAAAAAAAA");
+                        draw.setPilt("boss1.png");
+                    }
+                    else if (skoor1>=6 && skoor1<=8) {
+
+                        draw.setPilt("boss2.png");
+                    }
+                    else if (skoor1>=9 && skoor1<=11) {
+                        draw.setPilt("boss3.png");
+                    }
+                    else if (skoor1>=12) {
+                        draw.setPilt("boss3.png");
+                    }
                 }
                 rectangle1.setLocation(0, 0);
                 rectangle2.setLocation(500, 500);
@@ -97,7 +125,7 @@ class main extends JFrame implements KeyListener{ //4# Siin klassis pärime funk
                 Rectangle rectangle1 = draw.getBounds();
                 Rectangle rectangle2 = draw2.getBounds();
                 draw.setPilt("zeroent.png");
-                collision(rectangle1, rectangle2, 5);
+                collision(rectangle1, rectangle2, 0);
                 if (collisionToimub(rectangle1,rectangle2)){
                     muudaSkoor2(draw2);
                     muudaAsukohad(50,200,50,500,draw2);
@@ -125,8 +153,8 @@ class main extends JFrame implements KeyListener{ //4# Siin klassis pärime funk
         String mängija2 = nimed2.nextLine();  // Read user input
         System.out.println("Sinu kangelasnimi on: " + mängija2.toUpperCase());  // Output user in
         System.out.println("Player1 controls: WASD + space, Player2 controls: up,down,left,right + enter");
-        this.draw = new Draw(500,150, "Zeromanreal.png",1, mängija1);
-        this.draw2= new Draw(50,50, "Zeromanreal.png",2, mängija2);
+        this.draw = new Draw(500,150, "Zeromanreal.png",1, mängija1,150);
+        this.draw2= new Draw(50,50, "Zeromanreal.png",2, mängija2,50);
         this.getContentPane().setBackground(new Color(160,233,27));
         addKeyListener(this);
         setFocusable(true);

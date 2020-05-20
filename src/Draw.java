@@ -17,16 +17,22 @@ public class Draw extends JComponent {
     public int ruutNr;
     public int gameMode;
     public String mängija1;
+    public int karakteriSuurus;
 
-    public Draw(int x, int y, String pilt, int ruutNr, String mängija1) { //2# Siin loome parameetrid, mille abil on hiljem võimalik ruutu(mängukarakterit) disainida(muuta).
+    public Draw(int x, int y, String pilt, int ruutNr, String mängija1, int karakteriSuurus) { //2# Siin loome parameetrid, mille abil on hiljem võimalik ruutu(mängukarakterit) disainida(muuta).
         this.x = x;
         this.y = y;
         this.pilt = pilt;
         this.ruutNr = ruutNr;
         this.mängija1 = mängija1;
+        this.karakteriSuurus = karakteriSuurus;
     }
     public void setSkoor(int skoor) {
         this.skoor = skoor;
+    }
+
+    public int getSkoor() {
+        return skoor;
     }
 
     public void setX(int x) {
@@ -80,10 +86,10 @@ public class Draw extends JComponent {
         g.setColor(Color.black);
         g.setFont(myFont);
         super.paintComponent(g);
-        g.drawRect(x, y, 50, 50);
+        g.drawRect(x, y, karakteriSuurus, karakteriSuurus);
         //g.drawRect(x, y, 180,180);
-        g.fillRect(x, y, 50, 50);
-        g.drawImage(img, x, y, 55, 55, null);
+        g.fillRect(x, y, karakteriSuurus, karakteriSuurus);
+        g.drawImage(img, x, y, karakteriSuurus+5, karakteriSuurus+5, null);
         if (kokkuPorge) {
             kokkuPorge = false;
         }
@@ -98,7 +104,7 @@ public class Draw extends JComponent {
         }
     }
     public Rectangle bounds(){
-        return (new Rectangle(x,y,100,50));
+        return (new Rectangle(x,y,karakteriSuurus,karakteriSuurus));
     }
 
 
