@@ -8,14 +8,15 @@ import java.util.concurrent.ThreadLocalRandom;
 import javax.swing.JFrame;
 
 
-class main extends JFrame implements KeyListener{ //4# Siin klassis pärime funktsioonid Keylistenerilt, et koodi abil oleks võimalik klaviatuuri kaasata.
+class main extends JFrame implements KeyListener{
+    private static int gamemode; //4# Siin klassis pärime funktsioonid Keylistenerilt, et koodi abil oleks võimalik klaviatuuri kaasata.
     private Draw draw;
     private Draw draw2;
-    boolean  kokkuPorge = false;
+    //boolean  kokkuPorge = false;
     int uuenduskiirus = 500;
     public int skoor1;
     public int skoor2;
-    public boolean onoff = false;
+    //public boolean onoff = false;
     float cooldown1;
     float cooldown2;
 
@@ -47,6 +48,22 @@ class main extends JFrame implements KeyListener{ //4# Siin klassis pärime funk
             else if(liikumissuund==4){
                 draw.moveRight();
             }
+            if (cooldown2>=1) {
+                Rectangle rectangle1 = draw.getBounds();
+                Rectangle rectangle2 = draw2.getBounds();
+                //draw.setPilt("zeroent.png");
+                collision(rectangle1, rectangle2, 0);
+                if (collisionToimub(rectangle1,rectangle2)){
+                    muudaSkoor2(draw2);
+                    muudaAsukohad(50,200,50,500,draw2);
+                    muudaAsukohad(300,550,50,500,draw);
+                }
+                rectangle1.setLocation(0, 0);
+                rectangle2.setLocation(500, 500);
+                draw2.refresh();
+                cooldown2 = 0;
+            }
+
 
         }
     };
@@ -64,6 +81,7 @@ class main extends JFrame implements KeyListener{ //4# Siin klassis pärime funk
         else if(e.getKeyCode()== KeyEvent.VK_LEFT) {
             draw.moveLeft();
             draw.setPilt("zeroleftroh.png");
+
         }
         else if(e.getKeyCode()== KeyEvent.VK_DOWN) {
             draw.moveDown();
@@ -91,7 +109,7 @@ class main extends JFrame implements KeyListener{ //4# Siin klassis pärime funk
                 Rectangle rectangle1 = draw.getBounds();
                 Rectangle rectangle2 = draw2.getBounds();
                 draw2.setPilt("zerospac.png");
-                collision(rectangle1, rectangle2, 0);
+                collision(rectangle1, rectangle2, 10);
                 if (collisionToimub(rectangle1,rectangle2)){
                     muudaSkoor1(draw);
                     muudaAsukohad(50,200,50,500,draw2);
@@ -120,63 +138,79 @@ class main extends JFrame implements KeyListener{ //4# Siin klassis pärime funk
             }
         }
         else if(e.getKeyCode()== KeyEvent.VK_ENTER){
-            if (cooldown2>=1) {
-                System.out.println("PLAYER 2 LÖÖB");
-                Rectangle rectangle1 = draw.getBounds();
-                Rectangle rectangle2 = draw2.getBounds();
-                draw.setPilt("zeroent.png");
-                collision(rectangle1, rectangle2, 0);
-                if (collisionToimub(rectangle1,rectangle2)){
-                    muudaSkoor2(draw2);
-                    muudaAsukohad(50,200,50,500,draw2);
-                    muudaAsukohad(300,550,50,500,draw);
+            gamemode += 1;
+            if (gamemode == 1){
+                    main frame = new main();
+                    frame.setTitle("Zeroman version 1.1");
+                    frame.setResizable(true);
+                    frame.setSize(600, 600);
+                    frame.setMinimumSize(new Dimension(600, 600));
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.getContentPane().add(frame.draw);
+                    frame.pack();
+                    frame.getContentPane().add(frame.draw2);
+                    frame.pack();
+                    frame.setVisible(true);
                 }
-                rectangle1.setLocation(0, 0);
-                rectangle2.setLocation(500, 500);
-                draw2.refresh();
-                System.out.println(cooldown2);
-                cooldown2 = 0;
             }
+
         }
 
-    }
+
     public void keyTyped(KeyEvent e) {
     }
 
     public main(){ // siin kasutame Scannerit, et saada user inputi ning anname rectangletile parameetrid
-        Scanner nimed = new Scanner(System.in);
-        System.out.println("Sisesta nimi: ");
-        String mängija1 = nimed.nextLine();  // Read user input
-        System.out.println("Sinu kangelasnimi on: " + mängija1.toUpperCase());  // Output user in
-        Scanner nimed2 = new Scanner(System.in);
-        System.out.println("Sisesta nimi: ");
-        String mängija2 = nimed2.nextLine();  // Read user input
-        System.out.println("Sinu kangelasnimi on: " + mängija2.toUpperCase());  // Output user in
-        System.out.println("Player1 controls: WASD + space, Player2 controls: up,down,left,right + enter");
-        this.draw = new Draw(500,150, "Zeromanreal.png",1, mängija1,150);
-        this.draw2= new Draw(50,50, "Zeromanreal.png",2, mängija2,50);
-        this.getContentPane().setBackground(new Color(160,233,27));
-        addKeyListener(this);
-        setFocusable(true);
-        setFocusTraversalKeysEnabled(false);
-        timerstart1();
-        timerstart2();
+        if(gamemode==1) {
+            Scanner nimed = new Scanner(System.in);
+            System.out.println("Sisesta nimi: ");
+            String mängija1 = nimed.nextLine();  // Read user input
+            System.out.println("Sinu kangelasnimi on: " + mängija1.toUpperCase());  // Output user in
+            Scanner nimed2 = new Scanner(System.in);
+            System.out.println("Sisesta nimi: ");
+            String mängija2 = nimed2.nextLine();  // Read user input
+            System.out.println("Sinu kangelasnimi on: " + mängija2.toUpperCase());  // Output user in
+            System.out.println("Player1 controls: WASD + space, Player2 controls: up,down,left,right + enter");
+            this.draw = new Draw(500, 150, "Zeromanreal.png", 1, mängija1, 150);
+            this.draw2 = new Draw(50, 50, "Zeromanreal.png", 2, mängija2, 50);
+            this.getContentPane().setBackground(new Color(160, 233, 27));
+            addKeyListener(this);
+            setFocusable(true);
+            setFocusTraversalKeysEnabled(false);
+            timerstart1();
+            timerstart2();
+        }else {
+            this.draw = new Draw(500, 150, "Zeromanreal.png", 3, "mängija1", 150);
+            this.draw2 = new Draw(1000, 1000, "Zeromanreal.png", 3, "mängija2", 50);
+            this.getContentPane().setBackground(new Color(0, 100, 0));
+            addKeyListener(this);
+            setFocusable(true);
+            setFocusTraversalKeysEnabled(false);
+            timerstart1();
+            timerstart2();
+        }
     }
 
+
     public static void main(String[] args) { // #6 Siin loome mänguakna ning loome sellele parameetrid ja lisame sinna mängukarakterid
+
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                main frame = new main();
-                frame.setTitle("Zeroman version 1.1");
-                frame.setResizable(false);
-                frame.setSize(600, 600);
-                frame.setMinimumSize(new Dimension(600, 600));
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.getContentPane().add(frame.draw);
-                frame.pack();
-                frame.getContentPane().add(frame.draw2);
-                frame.pack();
-                frame.setVisible(true);
+
+                    main frame2 = new main();
+                    frame2.setTitle("START MENU AKEN");
+                    frame2.setResizable(true);
+                    frame2.setSize(600, 600);
+                    frame2.setMinimumSize(new Dimension(600, 600));
+                    frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame2.getContentPane().add(frame2.draw2);
+                frame2.pack();
+                    frame2.setVisible(true);
+                    //if(KeyEvent.KEY_PRESSED >1){
+                       // System.out.println("HEIJOU KEY PRESSED TÖÖTAB");
+                        //gamemode +=1;
+                   // }
+
 
             }
         });

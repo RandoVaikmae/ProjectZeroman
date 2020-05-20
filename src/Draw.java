@@ -98,9 +98,15 @@ public class Draw extends JComponent {
             g2d.drawString(mängija1, 400, 50);
 
         }
-        else {
+        if (ruutNr == 2) {
             g2d.drawString("SCORE: "+ skoor, 75, 25);
             g2d.drawString(mängija1, 75, 50);
+        }
+        if (ruutNr == 3) {
+            g2d.drawString("Press enter to start...", 135, 300);
+            g2d.drawString("Welcome to Zeroman!", 135, 150);
+            g2d.drawString("Enter your name below", 135, 200);
+            g2d.drawString("Controls: WASD + space", 135, 250);
         }
     }
     public Rectangle bounds(){
