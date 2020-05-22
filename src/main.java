@@ -169,7 +169,6 @@ class main extends JFrame implements KeyListener{
             Scanner nimed = new Scanner(System.in);
             System.out.println("Sisesta nimi: ");
             String mängija1 = nimed.nextLine();  // Read user input
-            mängija1 = mängijaNimi;
             System.out.println("Sinu kangelasnimi on: " + mängija1.toUpperCase());  // Output user in
             Scanner nimed2 = new Scanner(System.in);
             System.out.println("Sisesta nimi: ");
