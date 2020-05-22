@@ -200,7 +200,7 @@ class main extends JFrame implements KeyListener{
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                     main frame2 = new main();
-                    frame2.setTitle("START MENU AKEN");
+                    frame2.setTitle("START MENU AKENNN");
                     frame2.setResizable(true);
                     frame2.setSize(1000, 1000);
                     frame2.setMinimumSize(new Dimension(1000, 1000));
