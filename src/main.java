@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.*;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -15,10 +16,11 @@ class main extends JFrame implements KeyListener{
     //boolean  kokkuPorge = false;
     int uuenduskiirus = 500;
     public int skoor1;
-    public int skoor2;
+    public int skoor2 = 6;
     //public boolean onoff = false;
     float cooldown1;
     float cooldown2;
+    String mängijaNimi;
 
     Timer timer1 = new Timer();
     TimerTask task1 = new TimerTask(){
@@ -54,6 +56,9 @@ class main extends JFrame implements KeyListener{
                 //draw.setPilt("zeroent.png");
                 collision(rectangle1, rectangle2, 0);
                 if (collisionToimub(rectangle1,rectangle2)){
+                    if(skoor2==0){
+                        System.exit(0);
+                    }
                     muudaSkoor2(draw2);
                     muudaAsukohad(50,200,50,500,draw2);
                     muudaAsukohad(300,550,50,500,draw);
@@ -91,7 +96,7 @@ class main extends JFrame implements KeyListener{
         }
         else if(e.getKeyCode()== KeyEvent.VK_D){
             draw2.moveRight();
-            draw2.setPilt("Zeromanreal.png");
+            draw2.setPilt("zeroman halbert.png");
         }
         else if(e.getKeyCode()== KeyEvent.VK_A){
             draw2.moveLeft();
@@ -104,27 +109,26 @@ class main extends JFrame implements KeyListener{
             draw2.moveUp();
         }
         else if(e.getKeyCode()== KeyEvent.VK_SPACE){
-            if (cooldown1>=0.5) {
+            if (cooldown1>=0.05) {
                 System.out.println("PLAYER 1 LÖÖB");
                 Rectangle rectangle1 = draw.getBounds();
                 Rectangle rectangle2 = draw2.getBounds();
-                draw2.setPilt("zerospac.png");
+                draw2.setPilt("zeroman halberthit.png");
                 collision(rectangle1, rectangle2, 10);
                 if (collisionToimub(rectangle1,rectangle2)){
                     muudaSkoor1(draw);
-                    muudaAsukohad(50,200,50,500,draw2);
-                    muudaAsukohad(300,550,50,500,draw);
+                    muudaAsukohad(50,500,150,750,draw2);
+                    muudaAsukohad(500,800,150,750,draw);
                     System.out.println("HEIJOU SKOOR ON SEE " + skoor1);
                     if (skoor1>=3 && skoor1<=5) {
-                        System.out.println("JÕUDSIN SIIAAAAAAAAAAAAA");
                         draw.setPilt("boss1.png");
                     }
                     else if (skoor1>=6 && skoor1<=8) {
 
-                        draw.setPilt("boss2.png");
+                        draw.setPilt("Boss nr2.png");
                     }
                     else if (skoor1>=9 && skoor1<=11) {
-                        draw.setPilt("boss3.png");
+                        draw.setPilt("bossnr3.png");
                     }
                     else if (skoor1>=12) {
                         draw.setPilt("boss3.png");
@@ -143,8 +147,8 @@ class main extends JFrame implements KeyListener{
                     main frame = new main();
                     frame.setTitle("Zeroman version 1.1");
                     frame.setResizable(true);
-                    frame.setSize(600, 600);
-                    frame.setMinimumSize(new Dimension(600, 600));
+                    frame.setSize(1000, 1000);
+                    frame.setMinimumSize(new Dimension(1000, 1000));
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     frame.getContentPane().add(frame.draw);
                     frame.pack();
@@ -165,6 +169,7 @@ class main extends JFrame implements KeyListener{
             Scanner nimed = new Scanner(System.in);
             System.out.println("Sisesta nimi: ");
             String mängija1 = nimed.nextLine();  // Read user input
+            mängija1 = mängijaNimi;
             System.out.println("Sinu kangelasnimi on: " + mängija1.toUpperCase());  // Output user in
             Scanner nimed2 = new Scanner(System.in);
             System.out.println("Sisesta nimi: ");
@@ -182,7 +187,7 @@ class main extends JFrame implements KeyListener{
         }else {
             this.draw = new Draw(500, 150, "Zeromanreal.png", 3, "mängija1", 150);
             this.draw2 = new Draw(1000, 1000, "Zeromanreal.png", 3, "mängija2", 50);
-            this.getContentPane().setBackground(new Color(0, 100, 0));
+            this.getContentPane().setBackground(new Color(255, 0, 0));
             addKeyListener(this);
             setFocusable(true);
             setFocusTraversalKeysEnabled(false);
@@ -193,26 +198,50 @@ class main extends JFrame implements KeyListener{
 
 
     public static void main(String[] args) { // #6 Siin loome mänguakna ning loome sellele parameetrid ja lisame sinna mängukarakterid
-
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-
                     main frame2 = new main();
                     frame2.setTitle("START MENU AKEN");
                     frame2.setResizable(true);
-                    frame2.setSize(600, 600);
-                    frame2.setMinimumSize(new Dimension(600, 600));
+                    frame2.setSize(1000, 1000);
+                    frame2.setMinimumSize(new Dimension(1000, 1000));
                     frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame2.getContentPane().add(frame2.draw2);
-                frame2.pack();
+                    frame2.getContentPane().add(frame2.draw2);
+                    frame2.pack();
                     frame2.setVisible(true);
+                try {
+                    File logFail = new File("filename.txt");
+
+
+                    if (!logFail.exists()){
+                        FileWriter myWriter = new FileWriter("filename.txt");
+                        myWriter.write("Töötttaaab");
+                        myWriter.close();
+                        System.out.println("Successfully wrote to the file.");
+                    }
+                    else{
+                        FileInputStream fstream = new FileInputStream("filename.txt");
+                        BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+                        String strLine;
+                        while ((strLine = br.readLine()) != null)   {
+                            // Print the content on the console
+                            System.out.println (strLine);
+
+                            break;
+                        }
+
+                        fstream.close();
+                    }
+                } catch (IOException e) {
+                    System.out.println("An error occurred.");
+                    e.printStackTrace();
+                }
+            }
                     //if(KeyEvent.KEY_PRESSED >1){
                        // System.out.println("HEIJOU KEY PRESSED TÖÖTAB");
                         //gamemode +=1;
                    // }
 
-
-            }
         });
     }
     public boolean collisionToimub(Rectangle rectangle1, Rectangle rectangle2){
@@ -237,7 +266,7 @@ class main extends JFrame implements KeyListener{
         objekt.setSkoor(skoor1);
     }
     public void muudaSkoor2(Draw objekt){
-        skoor2++;
+        skoor2 = skoor2 - 1;
         objekt.setSkoor(skoor2);
     }
     public void muudaAsukohad(int xMin, int xMax, int yMin, int yMax, Draw objekt){//selles funktsioonis määrame pärast kokkupõrget karakteritele suvalise asukoha
