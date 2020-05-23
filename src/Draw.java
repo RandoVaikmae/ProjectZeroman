@@ -3,7 +3,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class Draw extends JComponent {
 
@@ -33,6 +32,10 @@ public class Draw extends JComponent {
 
     public int getSkoor() {
         return skoor;
+    }
+
+    public void setMängija1(String mängija1) {
+        this.mängija1 = mängija1;
     }
 
     public void setX(int x) {
@@ -87,7 +90,6 @@ public class Draw extends JComponent {
         g.setFont(myFont);
         super.paintComponent(g);
         g.drawRect(x, y, karakteriSuurus, karakteriSuurus);
-        //g.drawRect(x, y, 180,180);
         g.fillRect(x, y, karakteriSuurus, karakteriSuurus);
         g.drawImage(img, x, y, karakteriSuurus+5, karakteriSuurus+5, null);
         if (kokkuPorge) {

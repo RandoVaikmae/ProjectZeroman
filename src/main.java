@@ -13,11 +13,9 @@ class main extends JFrame implements KeyListener{
     private static int gamemode; //4# Siin klassis pärime funktsioonid Keylistenerilt, et koodi abil oleks võimalik klaviatuuri kaasata.
     private Draw draw;
     private Draw draw2;
-    //boolean  kokkuPorge = false;
     int uuenduskiirus = 500;
     public int skoor1;
     public int skoor2 = 6;
-    //public boolean onoff = false;
     float cooldown1;
     float cooldown2;
     String mängijaNimi;
@@ -79,22 +77,7 @@ class main extends JFrame implements KeyListener{
     }
 
     public void keyPressed(KeyEvent e) { //#5 Siin funktsioonis kontrollime kas nuppu on vajutatud ning millist nuppu on vajutatud
-        if(e.getKeyCode()== KeyEvent.VK_RIGHT){
-            draw.moveRight();
-            draw.setPilt("Zeromanreal.png");
-        }
-        else if(e.getKeyCode()== KeyEvent.VK_LEFT) {
-            draw.moveLeft();
-            draw.setPilt("zeroleftroh.png");
-
-        }
-        else if(e.getKeyCode()== KeyEvent.VK_DOWN) {
-            draw.moveDown();
-        }
-        else if(e.getKeyCode()== KeyEvent.VK_UP) {
-            draw.moveUp();
-        }
-        else if(e.getKeyCode()== KeyEvent.VK_D){
+        if(e.getKeyCode()== KeyEvent.VK_D){
             draw2.moveRight();
             draw2.setPilt("zeroman halbert.png");
         }
@@ -110,7 +93,7 @@ class main extends JFrame implements KeyListener{
         }
         else if(e.getKeyCode()== KeyEvent.VK_SPACE){
             if (cooldown1>=0.05) {
-                System.out.println("PLAYER 1 LÖÖB");
+                System.out.println("MÄNGIJA LÖÖB");
                 Rectangle rectangle1 = draw.getBounds();
                 Rectangle rectangle2 = draw2.getBounds();
                 draw2.setPilt("zeroman halberthit.png");
@@ -119,16 +102,15 @@ class main extends JFrame implements KeyListener{
                     muudaSkoor1(draw);
                     muudaAsukohad(50,500,150,750,draw2);
                     muudaAsukohad(500,800,150,750,draw);
-                    System.out.println("HEIJOU SKOOR ON SEE " + skoor1);
                     if (skoor1>=3 && skoor1<=5) {
                         draw.setPilt("boss1.png");
                     }
                     else if (skoor1>=6 && skoor1<=8) {
-
                         draw.setPilt("Boss nr2.png");
                     }
                     else if (skoor1>=9 && skoor1<=11) {
                         draw.setPilt("bossnr3.png");
+                        draw.setMängija1("Silmamuna");
                     }
                     else if (skoor1>=12) {
                         draw.setPilt("boss3.png");
@@ -166,17 +148,43 @@ class main extends JFrame implements KeyListener{
 
     public main(){ // siin kasutame Scannerit, et saada user inputi ning anname rectangletile parameetrid
         if(gamemode==1) {
-            Scanner nimed = new Scanner(System.in);
-            System.out.println("Sisesta nimi: ");
-            String mängija1 = nimed.nextLine();  // Read user input
-            System.out.println("Sinu kangelasnimi on: " + mängija1.toUpperCase());  // Output user in
-            Scanner nimed2 = new Scanner(System.in);
-            System.out.println("Sisesta nimi: ");
-            String mängija2 = nimed2.nextLine();  // Read user input
-            System.out.println("Sinu kangelasnimi on: " + mängija2.toUpperCase());  // Output user in
-            System.out.println("Player1 controls: WASD + space, Player2 controls: up,down,left,right + enter");
-            this.draw = new Draw(500, 150, "Zeromanreal.png", 1, mängija1, 150);
-            this.draw2 = new Draw(50, 50, "Zeromanreal.png", 2, mängija2, 50);
+            String mängija1;
+            try {
+                String failinimi = "mängijanimi.txt"; //fail nimi kust loetakse nime
+                File logFail = new File(failinimi);
+
+                if (!logFail.exists()){
+                    Scanner nimed = new Scanner(System.in);
+                    System.out.println("Sisesta nimi: ");
+                    mängija1 = nimed.nextLine();  // Read user input
+                    System.out.println("Sinu kangelasnimi on: " + mängija1.toUpperCase());  // Output user in
+                    FileWriter myWriter = new FileWriter(failinimi);
+                    myWriter.write(mängija1);
+                    myWriter.close();
+                    System.out.println("Successfully wrote to the file.");
+                    this.draw = new Draw(500, 150, "Zeromanreal.png", 1, mängija1, 150);
+                }
+                else{
+                    FileInputStream fstream = new FileInputStream(failinimi);
+                    BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+                    String strLine;
+                    while ((strLine = br.readLine()) != null)   {
+                        // Print the content on the console
+                        System.out.println ("Tere tulemast tagasi " + strLine + "!");
+                        this.draw = new Draw(500, 150, "Zeromanreal.png", 1, strLine, 150);
+                        break;
+                    }
+
+                    fstream.close();
+                }
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
+
+            System.out.println("Player controls: WASD + space");
+
+            this.draw2 = new Draw(50, 50, "Zeromanreal.png", 2, "Kõrvitsamees", 90);
             this.getContentPane().setBackground(new Color(160, 233, 27));
             addKeyListener(this);
             setFocusable(true);
@@ -208,38 +216,7 @@ class main extends JFrame implements KeyListener{
                     frame2.getContentPane().add(frame2.draw2);
                     frame2.pack();
                     frame2.setVisible(true);
-                try {
-                    File logFail = new File("filename.txt");
-
-
-                    if (!logFail.exists()){
-                        FileWriter myWriter = new FileWriter("filename.txt");
-                        myWriter.write("Töötttaaab");
-                        myWriter.close();
-                        System.out.println("Successfully wrote to the file.");
-                    }
-                    else{
-                        FileInputStream fstream = new FileInputStream("filename.txt");
-                        BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-                        String strLine;
-                        while ((strLine = br.readLine()) != null)   {
-                            // Print the content on the console
-                            System.out.println (strLine);
-
-                            break;
-                        }
-
-                        fstream.close();
-                    }
-                } catch (IOException e) {
-                    System.out.println("An error occurred.");
-                    e.printStackTrace();
-                }
             }
-                    //if(KeyEvent.KEY_PRESSED >1){
-                       // System.out.println("HEIJOU KEY PRESSED TÖÖTAB");
-                        //gamemode +=1;
-                   // }
 
         });
     }
