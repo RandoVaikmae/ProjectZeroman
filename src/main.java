@@ -48,13 +48,14 @@ class main extends JFrame implements KeyListener{
             else if(liikumissuund==4){
                 draw.moveRight();
             }
-            if (cooldown2>=1) {
+            if (cooldown2>=0.2) {
                 Rectangle rectangle1 = draw.getBounds();
                 Rectangle rectangle2 = draw2.getBounds();
                 //draw.setPilt("zeroent.png");
                 collision(rectangle1, rectangle2, 0);
                 if (collisionToimub(rectangle1,rectangle2)){
                     if(skoor2==0){
+                        System.out.println("Mäng on läbi, sinu skoor on " + skoor1);
                         System.exit(0);
                     }
                     muudaSkoor2(draw2);
@@ -83,7 +84,7 @@ class main extends JFrame implements KeyListener{
         }
         else if(e.getKeyCode()== KeyEvent.VK_A){
             draw2.moveLeft();
-            draw2.setPilt("zeroleftroh.png");
+            draw2.setPilt("zeroman halbertleft.png");
         }
         else if(e.getKeyCode()== KeyEvent.VK_S){
             draw2.moveDown();
@@ -103,17 +104,20 @@ class main extends JFrame implements KeyListener{
                     muudaAsukohad(50,500,150,750,draw2);
                     muudaAsukohad(500,800,150,750,draw);
                     if (skoor1>=3 && skoor1<=5) {
-                        draw.setPilt("boss1.png");
+                        draw.setPilt("samuraibveri.png");
+                        draw2.setMängija1("Samuraiboss");
                     }
                     else if (skoor1>=6 && skoor1<=8) {
                         draw.setPilt("Boss nr2.png");
+                        draw2.setMängija1("Kõrvitsamees");
                     }
                     else if (skoor1>=9 && skoor1<=11) {
                         draw.setPilt("bossnr3.png");
-                        draw.setMängija1("Silmamuna");
+                        draw2.setMängija1("Silmamuna");
                     }
                     else if (skoor1>=12) {
-                        draw.setPilt("boss3.png");
+                        draw.setPilt("Zeromanreal.png");
+                        draw2.setMängija1("Peegelpilt");
                     }
                 }
                 rectangle1.setLocation(0, 0);
@@ -161,8 +165,7 @@ class main extends JFrame implements KeyListener{
                     FileWriter myWriter = new FileWriter(failinimi);
                     myWriter.write(mängija1);
                     myWriter.close();
-                    System.out.println("Successfully wrote to the file.");
-                    this.draw = new Draw(500, 150, "Zeromanreal.png", 1, mängija1, 150);
+                    this.draw = new Draw(500, 150, "samuraib.png", 1, mängija1, 150);
                 }
                 else{
                     FileInputStream fstream = new FileInputStream(failinimi);
@@ -171,7 +174,7 @@ class main extends JFrame implements KeyListener{
                     while ((strLine = br.readLine()) != null)   {
                         // Print the content on the console
                         System.out.println ("Tere tulemast tagasi " + strLine + "!");
-                        this.draw = new Draw(500, 150, "Zeromanreal.png", 1, strLine, 150);
+                        this.draw = new Draw(500, 150, "samuraib.png", 1, strLine, 150);
                         break;
                     }
 
@@ -184,7 +187,7 @@ class main extends JFrame implements KeyListener{
 
             System.out.println("Player controls: WASD + space");
 
-            this.draw2 = new Draw(50, 50, "Zeromanreal.png", 2, "Kõrvitsamees", 90);
+            this.draw2 = new Draw(50, 50, "Zeromanreal.png", 2, "Samuraiboss", 90);
             this.getContentPane().setBackground(new Color(160, 233, 27));
             addKeyListener(this);
             setFocusable(true);
